@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///C:/next-home/Desktop/display_control.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>ブラビア操作</title>
+
+<script>
+function send(service, method, params) {
+  var ip = "163.221.190.231";
+  var psk = "1234";
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function() {    var resp = xhr.responseText;  }
+  xhr.open('POST', 'http://' + ip + '/sony/' + service);
+  if (psk) {    xhr.setRequestHeader('X-Auth-PSK', psk);  };
+  xhr.send(JSON.stringify({    method: method,    version: '1.0',    id: 1,    params: params ? [params] : [],  }));
+}
+function power(status) {  send('system', 'setPowerStatus', {status: status});}
+function HDMI(port) {  var uri = 'extInput:hdmi' + '?port=' + port;  send('avContent', 'setPlayContent', {uri: uri});}
+function mute(on) {  send('audio', 'setAudioMute', {status:on});}
+function volume(val) {  send('audio', 'setAudioVolume', {target:'speaker', volume:val});}
+</script>
+
+</head><body>
+<div>
+  Power:
+  <button onclick="power(true)">ON</button>  <button onclick="power(false)">OFF</button>
+</div>
+<div>
+  Volume:
+  <button onclick="volume(&#39;+1&#39;)">+1</button>  <button onclick="volume(&#39;-1&#39;)">-1</button>
+  <button onclick="mute(true)">Mute</button>  <button onclick="mute(false)">Unmute</button>
+  <input id="volume" type="text" size="3" value="10">
+  <button onclick="volume(document.getElementById(&#39;volume&#39;).value)">Set</button><small>(0 - 100)</small>
+</div>
+<div>
+  Input:
+  <button onclick="HDMI(1)">HDMI1</button>
+  <button onclick="HDMI(2)">HDMI2</button>
+  <button onclick="HDMI(3)">HDMI3(TAMBA)</button>
+  <button onclick="HDMI(4)">HDMI4(HOLSTEIN)</button>
+</div>
+</body></html>
