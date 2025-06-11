@@ -7,7 +7,13 @@ function send(service, method, params) {
   var ip = "163.221.190.231";
   var psk = "1234";
   var xhr = new XMLHttpRequest();
-  xhr.onload = function() {    var resp = xhr.responseText;  }
+  xhr.onload = function() {
+    var resp = xhr.responseText;  
+    log('-- ' + service + '.' + method + '(' + (params ? JSON.stringify(params) : '') + ') --'
+      + '\nstatus: ' + xhr.status
+      + '\n' + JSON.stringify(JSON.parse(xhr.response), null, '  '))
+
+  }
   xhr.open('POST', 'http://' + ip + '/sony/' + service);
   if (psk) {    xhr.setRequestHeader('X-Auth-PSK', psk);  };
   xhr.send(JSON.stringify({    method: method,    version: '1.0',    id: 1,    params: params ? [params] : [],  }));
@@ -16,6 +22,8 @@ function power(status) {  send('system', 'setPowerStatus', {status: status});}
 function HDMI(port) {  var uri = 'extInput:hdmi' + '?port=' + port;  send('avContent', 'setPlayContent', {uri: uri});}
 function mute(on) {  send('audio', 'setAudioMute', {status:on});}
 function volume(val) {  send('audio', 'setAudioVolume', {target:'speaker', volume:val});}
+function log(text) { var log = document.getElementById("log"); log.innerHTML = text + '\n' + log.innerHTML;}
+
 </script>
 
 </head><body>
