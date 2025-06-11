@@ -37,4 +37,9 @@ function volume(val) {  send('audio', 'setAudioVolume', {target:'speaker', volum
   <button onclick="HDMI(3)">HDMI3(TAMBA)</button>
   <button onclick="HDMI(4)">HDMI4(JERSEY)</button>
 </div>
+<div>
+  Result <button onclick="empty()">Clear</button><br/>
+  <textarea id="log" readonly rows="15" cols="80"></textarea>
+</div>
+
 </body></html>
