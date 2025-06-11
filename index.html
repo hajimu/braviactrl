@@ -23,6 +23,7 @@ function HDMI(port) {  var uri = 'extInput:hdmi' + '?port=' + port;  send('avCon
 function mute(on) {  send('audio', 'setAudioMute', {status:on});}
 function volume(val) {  send('audio', 'setAudioVolume', {target:'speaker', volume:val});}
 function log(text) { var log = document.getElementById("log"); log.innerHTML = text + '\n' + log.innerHTML;}
+function empty() { document.getElementById("log").innerHTML = '';}
 
 </script>
 
