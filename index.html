@@ -11,7 +11,7 @@ function send(service, method, params) {
     var resp = xhr.responseText;  
     log('-- ' + service + '.' + method + '(' + (params ? JSON.stringify(params) : '') + ') --'
       + '\nstatus: ' + xhr.status
-      + '\n' + JSON.stringify(JSON.parse(xhr.response), null, '  '))
+      + '\n' + JSON.stringify(JSON.parse(xhr.resp), null, '  '))
 
   }
   log('IP:'+ip+',PSK:'+psk+',Svc:'+service+',method:'+method+'\n');
